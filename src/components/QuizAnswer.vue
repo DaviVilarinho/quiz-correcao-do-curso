@@ -14,14 +14,20 @@ export default {
         answerClasses() {
             return {
                 answer: true,
-                'answer-not-selected': this.selectedAnswerInQuestion !== this.text,
-                'answer-selected': this.selectedAnswerInQuestion === this.text
+                'answer-not-selected': this.selectedAnswerInQuestion !== this.text && !this.isSubmitted,
+                'answer-selected': this.selectedAnswerInQuestion === this.text && !this.isSubmitted,
+                'incorrect-answer': this.selectedAnswerInQuestion === this.text && this.isSubmitted && !this.isCorrect,
+                'correct-answer': this.isSubmitted && this.isCorrect,
             }
         }
     },
     props: {
         selectedAnswerInQuestion: {
             required: false,
+        },
+        isSubmitted: {
+            required: true,
+            type: Boolean
         },
         text: {
             required: true,
@@ -53,15 +59,15 @@ export default {
     background-color: #fff;
 }
 
-.answer-correct {
+.correct-answer {
     background-color: green;
 }
 
-.answer-incorrect {
+.incorrect-answer {
     background-color: red;
 }
 
-.answer-selected:not(.answer-correct, .answer-incorrect) {
+.answer-selected:not(.correct-answer, .incorrect-answer) {
     background-color: #ddd;
 }
 

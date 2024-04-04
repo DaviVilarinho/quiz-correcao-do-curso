@@ -13,6 +13,7 @@
         :isCorrect="answer['is_correct']"
         :questionId="question['q']"
         :selectedAnswerInQuestion="correctAnswered[question['q']]?.selectedAnswer"
+        :isSubmitted="isSubmitted"
         @question-answered="markAnswered">
       </quiz-answer>
     </template>
@@ -31,6 +32,7 @@ export default {
   name: 'App',
   data() {
     return {
+      isSubmitted: false,
       correctAnswered: {},
       questions: [
         {
@@ -118,10 +120,11 @@ export default {
       this.correctAnswered[answerObject['questionId']] = answerObject;
     },
     reset() {
-      this.correctAnswered = {}
+      this.correctAnswered = {};
+      this.isSubmitted = false;
     },
     submit() {
-
+      this.isSubmitted = true;
     }
   },
 }
