@@ -7,7 +7,9 @@
 export default {
     methods: {
         markAnswered() {
-            this.$emit('question-answered', { 'questionId': this.questionId, 'selectedAnswer': this.text, 'isCorrect': this.isCorrect });
+            if (!this.isSubmitted) {
+                this.$emit('question-answered', { 'questionId': this.questionId, 'selectedAnswer': this.text, 'isCorrect': this.isCorrect });
+            }
         }
     },
     computed: {
