@@ -1,10 +1,15 @@
 <template>
   <div class="ctr">
+    <questions-vue></questions-vue>
+    <result-vue></result-vue>
     <button type="button" class="reset-btn">Reset</button>
   </div>
 </template>
 
 <script>
+import QuestionsVue from './components/QuestionsVue.vue';
+import ResultVue from './components/ResultVue.vue';
+
 export default {
   name: 'App',
   data() {
@@ -87,8 +92,10 @@ export default {
     }
   },
   components: {
+    QuestionsVue,
+    ResultVue
   },
   methods: {
   },
 }
-</script>
+</script>./components/ResultVue.vue./components/QuestionsVie.vue
