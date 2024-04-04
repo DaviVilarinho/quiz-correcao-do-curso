@@ -1,6 +1,6 @@
 <template>
   <div class="ctr">
-    <questions-vue></questions-vue>
+    <questions-vue :questions="questions"></questions-vue>
     <result-vue></result-vue>
     <button type="button" class="reset-btn">Reset</button>
   </div>
