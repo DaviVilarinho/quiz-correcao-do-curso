@@ -3,10 +3,16 @@
     <questions-vue :questions="questions"
       :questionsAnswered="questionsAnswered"
       @question-answered="questionAnswered"
+      v-if="questionsAnswered < questions.length"
       >
     </questions-vue>
-    <result-vue></result-vue>
-    <button type="button" class="reset-btn">Reset</button>
+    <result-vue v-else
+      :results="results"
+      :totalCorrect="totalCorrect"></result-vue>
+    <button type="button" 
+      class="reset-btn"
+      @click.prevent="reset"
+      v-show="questionsAnswered === questions.length">Reset</button>
   </div>
 </template>
 
@@ -18,8 +24,12 @@ export default {
   name: 'App',
   methods: {
     questionAnswered(isCorrect) {
-      this.totalCorrect += isCorrect;
+      this.totalCorrect += isCorrect ? 1 : 0;
       this.questionsAnswered++;
+    },
+    reset() {
+      this.totalCorrect = 0;
+      this.questionsAnswered = 0;
     }
   },
   data() {

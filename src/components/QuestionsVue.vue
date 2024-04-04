@@ -1,10 +1,16 @@
 <template>
     <div class="questions-ctr">
       <div class="progress">
-        <div class="bar"></div>
-        <div class="status">{{ questionsAnswered }} out of 3 questions answered</div>
+        <div class="bar"
+          :style="{ width: `${questionsAnswered/questions.length * 100}%` }"
+        >
+        </div>
+        <div class="status">{{ questionsAnswered }} out of {{ questions.length }} questions answered</div>
       </div>
-      <div class="single-question" v-for="(question, index) in questions" :key="question.q" v-show="index === questionsAnswered">
+      <div class="single-question" 
+        v-for="(question, index) in questions" 
+        :key="question.q" 
+        v-show="index === questionsAnswered">
         <div class="question">{{ question.q }}</div>
         <div class="answers">
           <div class="answer" 
