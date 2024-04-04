@@ -12,13 +12,14 @@
         :text="answer['text']"
         :isCorrect="answer['is_correct']"
         :questionId="question['q']"
+        :selectedAnswerInQuestion="correctAnswered[question['q']]?.selectedAnswer"
         @question-answered="markAnswered">
       </quiz-answer>
     </template>
   </quiz-question>
   <div>
-    <button class="btn reset-btn">Reset</button>
-    <button class="btn submit-btn">Submit</button>
+    <button class="btn reset-btn" @click.prevent="reset">Reset</button>
+    <button class="btn submit-btn" @click.prevent="submit">Submit</button>
   </div>
 </template>
 
@@ -114,7 +115,13 @@ export default {
   },
   methods: {
     markAnswered(answerObject) {
-      this.correctAnswered[answerObject['questionId']] = answerObject['isCorrect'];
+      this.correctAnswered[answerObject['questionId']] = answerObject;
+    },
+    reset() {
+      this.correctAnswered = {}
+    },
+    submit() {
+
     }
   },
 }

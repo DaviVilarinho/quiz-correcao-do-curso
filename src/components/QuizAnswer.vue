@@ -1,22 +1,28 @@
 
 <template>
-    <div :class="['answer']" @click="markAnswered" >{{ text }}</div>
+    <div :class="answerClasses" @click="markAnswered" ><span>{{ text }}</span></div>
 </template>
 
 <script>
 export default {
     methods: {
         markAnswered() {
-            this.isSelected = true;
-            this.$emit('question-answered', { 'questionId': this.questionId, 'isCorrect': this.isCorrect });
+            this.$emit('question-answered', { 'questionId': this.questionId, 'selectedAnswer': this.text, 'isCorrect': this.isCorrect });
         }
     },
-    data () {
-        return {
-            isSelected: false 
-        };
+    computed: {
+        answerClasses() {
+            return {
+                answer: true,
+                'answer-not-selected': this.selectedAnswerInQuestion !== this.text,
+                'answer-selected': this.selectedAnswerInQuestion === this.text
+            }
+        }
     },
     props: {
+        selectedAnswerInQuestion: {
+            required: false,
+        },
         text: {
             required: true,
             type: String
@@ -40,12 +46,23 @@ export default {
   padding: 20px;
   font-size: 18px;
   width: 100%;
-  background-color: #fff;
   transition: 0.2s linear all;
 }
 
-.answer-selected {
-    background-color: #8e959f;
+.answer-not-selected {
+    background-color: #fff;
+}
+
+.answer-correct {
+    background-color: green;
+}
+
+.answer-incorrect {
+    background-color: red;
+}
+
+.answer-selected:not(.answer-correct, .answer-incorrect) {
+    background-color: #ddd;
 }
 
 .answer span {
