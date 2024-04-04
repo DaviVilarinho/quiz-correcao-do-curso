@@ -1,6 +1,10 @@
 <template>
   <div class="ctr">
-    <questions-vue :questions="questions"></questions-vue>
+    <questions-vue :questions="questions"
+      :questionsAnswered="questionsAnswered"
+      @question-answered="questionAnswered"
+      >
+    </questions-vue>
     <result-vue></result-vue>
     <button type="button" class="reset-btn">Reset</button>
   </div>
@@ -12,8 +16,16 @@ import ResultVue from './components/ResultVue.vue';
 
 export default {
   name: 'App',
+  methods: {
+    questionAnswered(isCorrect) {
+      this.totalCorrect += isCorrect;
+      this.questionsAnswered++;
+    }
+  },
   data() {
     return {
+      questionsAnswered: 0,
+      totalCorrect: 0,
       questions: [
         {
           q: 'What is 2 + 2?',
@@ -94,8 +106,6 @@ export default {
   components: {
     QuestionsVue,
     ResultVue
-  },
-  methods: {
   },
 }
 </script>./components/ResultVue.vue./components/QuestionsVie.vue
